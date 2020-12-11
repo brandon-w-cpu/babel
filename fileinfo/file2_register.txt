@@ -1,2 +1,0 @@
-function found here with params [a, b]
-a = c + 6 - d - e 
