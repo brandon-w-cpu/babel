@@ -1,0 +1,784 @@
+import { notEqual } from "assert";
+
+
+module.exports = function (babel) {
+  const fs = require("fs");
+  let writeStream = fs.createWriteStream("file1_register.txt");
+  var t = babel.types;
+  let s = "";
+  
+  
+
+  
+
+
+
+  
+
+  var output = [];
+  return {
+    visitor: {
+      ArrayExpression(path) {
+        //elements: Array<null | Expression | SpreadElement> (default: [])
+        let array; 
+
+        for(let i of path.node.elements) {
+            array += JSON.stringify(i) + ","
+        }
+        writeStream.write(
+          "[" +
+            path.node.type + ",[" + array +
+            "][" +
+            path.node.loc.start.line +
+            +"," +
+            path.node.loc.end.line +
+            "," +
+            path.node.loc.start.column +
+            "," +
+            path.node.loc.end.column +
+            "]"
+        );
+        writeStream.write("\n");
+      },
+
+      ArrayPattern(path) {
+        //elements: Array<PatternLike> (required)
+        //decorators: Array<Decorator> (default: null)
+        //typeAnnotation: TypeAnnotation | TSTypeAnnotation | Noop (default: null)
+
+        writeStream.write(
+          "[" +
+            path.node.type +
+            "][" +
+            path.node.loc.start.line +
+            +"," +
+            path.node.loc.end.line +
+            "," +
+            path.node.loc.start.column +
+            "," +
+            path.node.loc.end.column +
+            "]"
+        );
+        writeStream.write("\n");
+      },
+      ArrayTypeAnnotation(path) {
+        //elementType: FlowType (required)
+
+        writeStream(
+          "[" +
+            path.node.type +
+            "][" +
+            path.node.loc.start.line +
+            +"," +
+            path.node.loc.end.line +
+            "," +
+            path.node.loc.start.column +
+            "," +
+            path.node.loc.end.column +
+            "]"
+        );
+        writeStream.write("\n");; 
+      },
+
+      AssignmentExpression(path) {
+        writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+        JSON.stringify(path.node))
+    
+        writeStream.write("\n");; 
+       
+      },
+      AssignmentPattern(path) {
+        //left: Identifier | ObjectPattern | ArrayPattern (required)
+        //right: Expression (required)
+        //decorators: Array<Decorator> (default: null)
+        //typeAnnotation: TypeAnnotation | TSTypeAnnotation | Noop (default: null)
+
+        writeStream.write(
+            JSON.stringify(path.node)); 
+          writeStream.write("\n");; 
+      },
+      BinaryExpression(path) {
+        writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+        JSON.stringify(path.node))
+    
+        writeStream.write("\n");; 
+      },
+      BindExpression(path) {
+        // operator: "+" | "-" | "/" | "%" | "*" | "**" | "&" | "|" | ">>" | ">>>" | "<<" | "^" | "==" | "===" | "!=" | "!==" | "in" | "instanceof" | ">" | "<" | ">=" | "<=" (required)
+        //object (required)
+        //callee (required)
+
+        writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+        JSON.stringify(path.node))
+    
+        writeStream.write("\n");; 
+      },
+      CallExpression(path) {
+        //callee: Expression (required)
+        //arguments: Array<Expression | SpreadElement | JSXNamespacedName> (required)
+        //optional: true | false (default: null)
+        //typeArguments: TypeParameterInstantiation (default: null)
+        //typeParameters: TSTypeParameterInstantiation (default: null)
+        writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+        JSON.stringify(path.node))
+    
+        writeStream.write("\n");; 
+      },
+      ClassDeclaration(path) {
+          writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+              JSON.stringify(path.node))
+          
+          writeStream.write("\n");; 
+       
+      },
+
+      ClassExpression(path) {
+        writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+              JSON.stringify(path.node))
+          
+          writeStream.write("\n");; 
+               
+      },
+
+    ClassImplements(path) {
+      // writeStream.write("[" + path.node.type + "][" + path.node.loc.start.line + + "," + path.node.loc.end.line + "," + path.node.loc.start.column + "," + path.node.loc.end.column + "]");
+    },
+    ClassMethod(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+
+    ClassProperty(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    ConditionalExpression(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    ContinueStatement(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    DebuggerStatement(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    DeclareClass(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    DeclareExportDeclaration(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    DeclareFunction(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    DeclareInterface(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    DeclareModule(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    DeclareModuleExports(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    DeclareOpaqueType(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    DeclareTypeAlias(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    DeclareVariable(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    Decorator(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    Directive(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    DirectiveLiteral(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    DoExpression(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    DoWhileStatement(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    EmptyStatement(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    EmptyTypeAnnotation(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    ExportAllDeclaration(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    ExportDefaultDeclaration(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    ExportDefaultSpecifier(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    ExportNamedDeclaration(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    ExportNamespaceSpecifier(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    ExportSpecifier(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    ExpressionStatement(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+
+    File(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    ForInStatement(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    ForOfStatement(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    ForStatement(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    FunctionDeclaration(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    FunctionExpression(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    FunctionTypeAnnotation(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+
+    FunctionTypeParam(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    GenericTypeAnnotation(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    Identifier(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+        JSON.stringify(path.node))
+    
+        writeStream.write("\n");; 
+    },
+    IfStatement(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    Import(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    ImportDeclaration(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    ImportDefaultSpecifier(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    InterfaceDeclaration(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    InterfaceExtends(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    IntersectionTypeAnnotation(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    LabeledStatement(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    LogicalExpression(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    MemberExpression(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    MetaProperty(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+
+    MixedTypeAnnotation(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    NumericLiteral(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    NullLiteral(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    BlockStatement(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    NewExpression(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    NullableTypeAnnotation(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+
+    NumberTypeAnnotation(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    ObjectExpression(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    ObjectMethod(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    ObjectPattern(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    ObjectProperty(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    ObjectTypeAnnotation(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    ObjectTypeCallProperty(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    ObjectTypeIndexer(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    ObjectTypeProperty(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    ObjectTypeSpreadProperty(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    OpaqueType(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    ParenthesizedExpression(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+
+    QualifiedTypeIdentifier(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    RegExpLiteral(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    RestElement(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    ReturnStatement(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    SequenceExpression(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    SpreadElement(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    StringLiteral(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    StringLiteralTypeAnnotation(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    StringTypeAnnotation(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    Super(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    SwitchCase(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    SwitchStatement(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    TaggedTemplateExpression(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    TemplateElement(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    TemplateLiteral(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    ThisExpression(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    ThisTypeAnnotation(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    ThrowStatement(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    TryStatement(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    TupleTypeAnnotation(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    TypeAlias(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    TypeAnnotation(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    TypeCastExpression(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    TypeParameter(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    TypeParameterDeclaration(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    TypeParameterInstantiation(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    TypeofTypeAnnotation(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    UnaryExpression(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    UnionTypeAnnotation(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    UpdateExpression(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    VariableDeclaration(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    VariableDeclarator(path) {
+        writeStream.write(
+            JSON.stringify(path.node)); 
+          writeStream.write("\n");; 
+          
+    
+      writeStream.write("\n");; 
+    },
+    VoidTypeAnnotation(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    WhileStatement(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+          JSON.stringify(path.node))
+      
+      writeStream.write("\n");; 
+    },
+    WithStatement(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+        JSON.stringify(path.node))
+    
+        writeStream.write("\n");; 
+    },
+    YieldExpression(path) {
+      writeStream.write(path.node.loc.start.line + ", " + path.node.loc.end.line + ", " + path.node.loc.start.column + ", " + path.node.loc.end.column + ", " +
+      JSON.stringify(path.node))
+  
+      writeStream.write("\n");; 
+    },
+
+    
+
+        
+
+    }
+    
+    }
+    
+
+    
+}
+

@@ -52,7 +52,7 @@ constructor(over :string, dest :string) {
 
     }
     console.log(this.babelPath); 
-        console.log(this.registerPath); 
+    console.log(this.registerPath); 
 
     this.getFromAST(); 
 }

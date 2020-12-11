@@ -1,0 +1,25 @@
+{
+  "name": "BabelTests",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel imports -d importsAst"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/generator": "^7.12.5",
+    "@babel/parser": "^7.12.7",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0"
+  },
+  "dependencies": {
+    "@types/lodash.isequal": "^4.5.5",
+    "babel-traverse": "^6.26.0",
+    "lodash": "^4.17.10"
+  }
+}

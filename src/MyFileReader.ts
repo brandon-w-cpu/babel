@@ -9,9 +9,10 @@ class MyFileReader {
     constructor(path :string) {
         this.path = path; 
         
-       this. file = readFileSync(this.path); 
+       this.file = readFileSync(this.path); 
     }
 
+    
 
     
 }

@@ -1,0 +1,2 @@
+function found here with params [a, b]
+x = z + b - c - d 
