@@ -65,86 +65,20 @@ var src2 = fs.readFileSync(file2, 'utf8');
     filterAST(json)
   }
 
+  console.log(Store.p1)
+
   for(let i = 0; i < Store.p1.length && i < Store.p1.length; i++) { 
-    console.log(_.isEqual(Store.p1[i], Store.p2[i]))
-    console.log("////////////////////////////////////////////////////////////////////////////")
+   // console.log((Store.p1[i]))
+   // console.log("////////////////////////////////////////////////////////////////////////////")
 
 
   }
-    
+  //console.log((Store.p1[0]))
+  
+ // console.log((Store.p2[0]))
+
+  console.log(deepEqual(Store.p1[0], Store.p2[0]))
   //console.log(deepEqual(Store.p1, Store.p2))
-
-  //compareAST(Store.p1, Store.p2)
-
-  /*
-
-  const readline = require('readline');
-
-  let s = ""; 
-  async function processLineByLine() {
-    console.log('inside');
-    const fileStream = fs.createReadStream('file1_register.txt');
-  
-    const rl = readline.createInterface({
-      input: fileStream,
-      crlfDelay: Infinity
-    });
-    // Note: we use the crlfDelay option to recognize all instances of CR LF
-    // ('\r\n') in input.txt as a single line break.
-  
-    for await (const line of rl) {
-      // Each line in input.txt will be successively available here as `line`.
-      //console.log(`Line from file: ${line}`);
-      s+= line + "\n"; 
-    }
-    console.log('after');
-  }
-
-  processLineByLine()
-    .then(() => {
-      console.log('outside: ', s); 
-    }); 
-
-    */
-
-  
-  
-  /*
-  var srcreg1 :string = fs.readFileSync("./sample_register1.txt").toString(); 
-  var srcreg2 :string = fs.readFileSync("./sample_register2.txt").toString(); 
-
-  
-
-  let reg1 = srcreg1.split('\n', 1000)
-  let reg2 = srcreg2.split('\n', 1000)
-
-  let r1 :Array<Array<string>> = new Array<Array<string>>(); 
-  let r2 :Array<Array<string>> = new Array<Array<string>>(); 
-
-  for(let i of reg1) {
-   // console.log(i)
-    let arr :Array<string> = i.split(',', 1000);
-    r1.push(arr); 
-
-  }
-
-  for(let i of reg2) {
-    // console.log(i)
-     let arr :Array<string> = i.split(',', 1000);
-     r2.push(arr); 
- 
-   }
-
-   for(let line of r1) {
-     for(let i = 0; i < line.length; i++) {
-       //console.log(line[i]); 
-     }
-   }
-
-
-
-   genMatches(r1, r2); 
-   */
 
    
 

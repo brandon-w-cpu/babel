@@ -143,10 +143,14 @@ export function deepEqual(object1, object2) {
 export function filterAST(json :JSON) {
     for(let key in json) {
       let elem = json[key]
-      if(key === "loc" || key === "start" || key === "end") {
+      if(key === "loc" || key === "start" || key === "end" ) {
         
-       delete json[key]
+       //delete json[key]
      }
+
+    else if (key === "body") {
+      
+    }
     else if(elem !== null) {
      if((<any>elem).type !== undefined) {
      //  console.log("recursion")
